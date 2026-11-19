@@ -24,6 +24,7 @@ import { KnownMembership, type RoomMemberEventContent } from "matrix-js-sdk/src/
 import { LinkedText } from "@element-hq/web-shared-components";
 
 import dis from "../dispatcher/dispatcher";
+import { htmlSerializeFromMdIfNeeded } from "../editor/serialize";
 import { _t, _td, UserFriendlyError } from "../languageHandler";
 import Modal from "../Modal";
 import MultiInviter from "../utils/MultiInviter";
@@ -73,7 +74,8 @@ export const Commands = [
         args: "<message>",
         description: _td("slash_command|spoiler"),
         runFn: function (cli, roomId, threadId, message = "") {
-            return successSync(ContentHelpers.makeHtmlMessage(message, `<span data-mx-spoiler>${message}</span>`));
+            const html = htmlSerializeFromMdIfNeeded(message) ?? message;
+            return successSync(ContentHelpers.makeHtmlMessage(message, `<span data-mx-spoiler>${html}</span>`));
         },
         category: CommandCategories.messages,
     }),

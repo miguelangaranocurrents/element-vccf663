@@ -120,7 +120,8 @@
 
 /* The shell controls the body-slot surface. Body components own their
    internal content styling. */
-.slotBody > * {
+.slotBody > *:not(:global(.mx_EditMessageComposer)) {
+    /* The edit composer must not clip its autocomplete, which pops out above it */
     overflow-y: hidden;
     text-align: start;
 }

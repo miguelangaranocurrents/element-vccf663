@@ -41,6 +41,11 @@
     display: flex;
 }
 
+/* Let the body shrink below its content's min-width (e.g. wide code blocks) instead of overflowing the tile */
+.annotated > :first-child {
+    min-width: 0;
+}
+
 .annotatedInline {
     display: inline-flex;
 }
